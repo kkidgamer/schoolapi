@@ -1,4 +1,4 @@
-const {User} = require('../model/schooldb')
+const {User } = require('../model/SchoolDb')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
