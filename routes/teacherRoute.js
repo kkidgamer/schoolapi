@@ -1,8 +1,10 @@
 const express =require('express');
 const router = express.Router();
+const teacherDash = require('../controller/teacherDash')
 const teacherController = require('../controller/teacherController');
 
 const { auth, authorizeRoles } = require('../middlware/auth');
+router.get('/dash', auth, authorizeRoles('teacher'), teacherDash.getTeacherDash)
 router.post('/', auth, authorizeRoles("admin"), teacherController.addTeacher);
 router.get('/class', auth, authorizeRoles("teacher"), teacherController.getMyClasses);
 router.get('/myassignments', auth, authorizeRoles("teacher"), teacherController.getMyAssignments);
