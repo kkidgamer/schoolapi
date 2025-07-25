@@ -1,4 +1,4 @@
-const {Teacher,User, Classroom}= require('../model/SchoolDb')
+const {Teacher,User, Classroom,Assignment}= require('../model/SchoolDb')
 const bcrypt = require('bcrypt');
 // Add teacher
 exports.addTeacher = async (req, res) => {
@@ -117,7 +117,7 @@ exports.deleteTeacher = async (req,res) => {
         res.json({message: 'Teacher deleted successfully'});
         await Classroom.updateMany(
             { teacher: teacher._id },
-            { $unset: { teacher: "" } }
+            { $set: { teacher: null } }
         );
        
     } catch (error) {
@@ -142,6 +142,19 @@ exports.getMyClasses= async (req, res) => {
         res.status(200).json(classrooms);
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+}
+
+exports.getMyAssignments=async (req,res) => {
+    try {
+        const userId= req.user.userId;
+        const user = await User.findById(userId).populate('teacher');
+        const assignments = await Assignment.find({postedBy: user.teacher._id})
+        .populate('classroom','name gradeLevel classYear')
+        .populate('postedBy')
+        res.status(200).json(assignments)
+    } catch (error) {
+        res.status(500).json({message:error.message})
     }
 }
 

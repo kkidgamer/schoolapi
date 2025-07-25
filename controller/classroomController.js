@@ -1,5 +1,5 @@
-const { request } = require('express')
-const {Classroom}= require('../model/SchoolDb')
+const express = require('express')
+const {Classroom, Teacher}= require('../model/SchoolDb')
 
 // Add class
 

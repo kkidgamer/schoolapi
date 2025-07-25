@@ -17,7 +17,7 @@ const auth=(req,res,next)=>{
      const decode = jwt.verify(token, JWT_SECRET)
      // we attatch the payload to the request object
         req.user = decode
-        console.log(decode)
+        // console.log(decode)
         //proceed to the next middleware or route handler
         
         next()

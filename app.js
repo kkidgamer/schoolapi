@@ -2,7 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const e = require('cors');
+
 require('dotenv').config();
 
 // middlewares
@@ -24,6 +24,22 @@ app.use('/api/classroom', classroomRoutes);
 // teacher routes
 const teacherRoutes = require('./routes/teacherRoute');
 app.use('/api/teacher', teacherRoutes)
+
+// assignemt routes
+const assignmentRoutes= require('./routes/assignemntRoute')
+app.use('/api/assignment', assignmentRoutes)
+
+// parent routes
+const parentRoutes = require('./routes/parentRoute');
+app.use('/api/parent', parentRoutes);
+
+// student routes
+const studentRoutes = require('./routes/studentRoute');
+app.use('/api/student', studentRoutes);
+
+// admin routes
+const adminRoutes = require('./routes/adminRoute');
+app.use('/api/admin', adminRoutes);
 // connect to the database
 mongoose.connect(process.env.MONGO_URI)
 .then(()=> console.log('Connected to MongoDB'))

@@ -36,7 +36,7 @@ const classroomSchema = new Schema({
     name:{type:String, required:true},
     gradeLevel:{type:String},
     classYear:{type:Date},
-    teacher:{type:Schema.Types.ObjectId, ref:'Teacher', default:null},
+    teacher:[{type:Schema.Types.ObjectId, ref:'Teacher', default:null}],
     students:[{type:Schema.Types.ObjectId, ref:'Student'}]
 }, {timestamps:true});
 
