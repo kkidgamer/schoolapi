@@ -69,11 +69,11 @@ exports.updateTeacher = async (req,res) => {
             return res.status(400).json({ message: "Invalid teacher ID" });
         }
         const teacherId = new mongoose.Types.ObjectId(req.params.id);
-        const existUser = await User.findOne({ teacher: teacherId });
+        const existUser = await Teacher.findById(req.params.id);
         console.log("Found user:", existUser);
         console.log("Teacher ID:", req.params.id);
     if (!existUser) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ message: "Teacher not found" });
     }
         
         if(req.user.role=="teacher" && req.user.userId!==req.params.id){
@@ -92,11 +92,11 @@ exports.updateTeacher = async (req,res) => {
 
         }
         // Update the user document
-        const updatedUser= await User.findByIdAndUpdate(req.params.id, updatedData, {new: true});
+        const updatedUser= await User.findOneAndUpdate({teacher:req.params.id, updatedData, {new: true}});
         if (!updatedUser) {
             return res.status(404).json({message: 'User not found'});
         }
-        const updatedTeacher = await Teacher.findByIdAndUpdate(existUser.teacher, req.body, {new: true});
+        const updatedTeacher = await Teacher.findByIdAndUpdate(req.params.id, req.body, {new: true});
         if (!updatedTeacher) {
             return res.status(404).json({message: 'Teacher not found'});
         }
