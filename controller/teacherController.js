@@ -64,7 +64,7 @@ exports.updateTeacher = async (req,res) => {
     try {
         
         const updatedData = req.body
-       const existUser= await User.findById(req.params.id)
+       const existUser= await User.findOne({teacher:req.params.id})
         console.log(existUser)
         console.log(req.params.id)
         if(!existUser){
