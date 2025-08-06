@@ -63,13 +63,17 @@ exports.getTeacherById = async (req, res) => {
 exports.updateTeacher = async (req,res) => {
     try {
         
-        const updatedData = req.body
-       const existUser= await User.findOne({teacher:req.params.id})
-        console.log(existUser)
-        console.log(req.params.id)
-        if(!existUser){
-            res.json({message:"User not found"})
+        const updatedData = req.body;
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: "Invalid teacher ID" });
         }
+        const teacherId = new mongoose.Types.ObjectId(req.params.id);
+        const existUser = await User.findOne({ teacher: teacherId });
+        console.log("Found user:", existUser);
+        console.log("Teacher ID:", req.params.id);
+    if (!existUser) {
+        return res.status(404).json({ message: "User not found" });
+    }
         
         if(req.user.role=="teacher" && req.user.userId!==req.params.id){
             res.status(403).json({message:"Unauthorized access"})
