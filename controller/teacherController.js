@@ -65,6 +65,8 @@ exports.updateTeacher = async (req,res) => {
         
         const updatedData = req.body
        const existUser= await User.findById(req.params.id)
+        console.log(existUser)
+        console.log(req.params.id)
         if(!existUser){
             res.json({message:"User not found"})
         }
