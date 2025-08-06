@@ -64,7 +64,10 @@ exports.updateTeacher = async (req,res) => {
     try {
         
         const updatedData = req.body
-       
+       const existUser= await User.findById(req.params.id)
+        if(!existUser){
+            res.json({message:"User not found"})
+        }
         
         if(req.user.role=="teacher" && req.user.userId!==req.params.id){
             res.status(403).json({message:"Unauthorized access"})
