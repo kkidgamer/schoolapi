@@ -1,5 +1,6 @@
 const {Teacher,User, Classroom,Assignment}= require('../model/SchoolDb')
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 // Add teacher
 exports.addTeacher = async (req, res) => {
     // check if teacher already exists
