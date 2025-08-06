@@ -92,7 +92,11 @@ exports.updateTeacher = async (req,res) => {
 
         }
         // Update the user document
-        const updatedUser= await User.findOneAndUpdate({teacher:req.params.id, updatedData, {new: true}});
+        const updatedUser = await User.findOneAndUpdate(
+            { teacher: new mongoose.Types.ObjectId(req.params.id) },
+            { $set: updatedData },
+            { new: true, runValidators: true }
+        );
         if (!updatedUser) {
             return res.status(404).json({message: 'User not found'});
         }
