@@ -8,6 +8,7 @@ router.post('/', auth, authorizeRoles("admin"), parentController.addParent);
 router.get('/children', auth,authorizeRoles("parent"), parentDash.parentDash);
 router.get('/assignments/:id', auth, parentDash.getMyClassAssignments);
 router.get('/', auth, parentController.getAllParents);
+router.get('/:id', auth, parentController.getParentById);
 router.put('/:id', auth, authorizeRoles("admin"), parentController.updateParent);
 router.delete('/:id', auth, authorizeRoles("admin"), parentController.deleteParent);
 module.exports=router
