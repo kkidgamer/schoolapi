@@ -7,7 +7,7 @@ const { auth, authorizeRoles } = require('../middlware/auth');
 router.post('/', auth, authorizeRoles("admin"), parentController.addParent);
 router.get('/children', auth,authorizeRoles("parent"), parentDash.parentDash);
 router.get('/assignments/:id', auth, parentDash.getMyClassAssignments);
-router.get('/:id', auth, parentController.getParentById);
+router.get('/:nationalId', auth, parentController.getParentById);
 router.get('/', auth, parentController.getAllParents);
 
 router.put('/:id', auth, authorizeRoles("admin"), parentController.updateParent);
