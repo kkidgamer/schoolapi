@@ -85,7 +85,7 @@ exports.addStudent = async (req, res) => {
 // get all students
 exports.getAllStudents = async (req, res) => {
     try {
-        const students = await Student.find()
+        const students = await Student.find().populate('classroom').populate('parent')
         res.status(200).json(students);
     } catch (error) {
         res.status(500).json({ message: error.message });
